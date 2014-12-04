@@ -1,6 +1,6 @@
 <?php
 
-class UsuarioController extends Controller
+class TemaController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,7 +28,7 @@ class UsuarioController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','listar'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -62,16 +62,16 @@ class UsuarioController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Usuario;
+		$model=new Tema;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
+		if(isset($_POST['Tema']))
 		{
-			$model->attributes=$_POST['Usuario'];
+			$model->attributes=$_POST['Tema'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idUsuario));
+				$this->redirect(array('view','id'=>$model->idTema));
 		}
 
 		$this->render('create',array(
@@ -91,11 +91,11 @@ class UsuarioController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
+		if(isset($_POST['Tema']))
 		{
-			$model->attributes=$_POST['Usuario'];
+			$model->attributes=$_POST['Tema'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idUsuario));
+				$this->redirect(array('view','id'=>$model->idTema));
 		}
 
 		$this->render('update',array(
@@ -122,7 +122,7 @@ class UsuarioController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Usuario');
+		$dataProvider=new CActiveDataProvider('Tema');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class UsuarioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Usuario('search');
+		$model=new Tema('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Usuario']))
-			$model->attributes=$_GET['Usuario'];
+		if(isset($_GET['Tema']))
+			$model->attributes=$_GET['Tema'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class UsuarioController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Usuario the loaded model
+	 * @return Tema the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Usuario::model()->findByPk($id);
+		$model=Tema::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,14 +160,32 @@ class UsuarioController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Usuario $model the model to be validated
+	 * @param Tema $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='usuario-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='tema-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
+
+
+
+    public function actionListar(){
+        
+        $model = new Tema;
+        $model->Nombre = "Jooo";
+        $model->NumeroDeAportes=1;
+        $model->save();    
+
+        $Books = Tema::model()->findAll();
+        
+        $this->render('listar',array(
+			'Books'=>$Books,
+		));
+        
+        
+    }
 }
