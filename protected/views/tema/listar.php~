@@ -1,0 +1,4 @@
+<?
+foreach($temas as $temas3)
+    echo "Nombre : ".$temas3->tema;
+?>

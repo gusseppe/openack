@@ -53,7 +53,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=openack',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'ROOT',
+			'password' => '123456',
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
