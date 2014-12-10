@@ -170,4 +170,21 @@ class UsuarioController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+ public function actionListar(){
+	  $model = new Usuario;
+	  $model->Nombre ='Jose';
+	  $model->Apellidos ='Paredes';
+	  $model->Puntuacion ='9';
+	  
+	  $model->save();
+	  
+	  $user = Usuario::model()->findAll();
+	  
+	  $this->render('listar',array(
+		'Usuarios'=>$user,
+	));
+
+ }
+
 }
